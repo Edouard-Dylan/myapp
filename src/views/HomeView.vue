@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <p v-if="visible">Maintenant vous me voyez {{msg}}</p>
+    <button v-on:click="foo()">
+      ok
+    </button>
+    <TextComponent v-background:green color="green"/>
+    <TextComponent v-background:white color="white"/>
+    <TextComponent v-background/>
+    <Todos/>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import TextComponent from '@/components/TextComponent.vue';
+import Todos from '@/components/Todos.vue';
+
 
 @Options({
   components: {
-    HelloWorld,
+    TextComponent,
+    Todos,
+  },
+  props: {
+    msg: String
   },
 })
-export default class HomeView extends Vue {}
+export default class Home extends Vue {
+    msg!: string
+    visible = true;
+    foo(){
+      this.visible = !this.visible;
+    }
+}
 </script>
